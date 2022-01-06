@@ -3,6 +3,7 @@ import ResponseBuilderSecond from "./ResponseBuilderSecond.js"
 import ResponseBuilder404 from "./ResponseBuilder404.js"
 import ResponseBuilderJSONAttributes from "./ResponseBuilderJSONAttributes.js";
 import ResponseBuilderJSONRandom from "./ResponseBuilderJSONRandom.js";
+import ResponseBuilderPublicResource from "./ResponseBuilderPublicResource.js"
 
 export default class RequestController {
 
@@ -33,8 +34,8 @@ export default class RequestController {
         else if(this.#url.pathname == '/random') {
             new ResponseBuilderJSONRandom(this.#req, this.#res).createResponse()
         }
-        else if(this.#url.pathname == '/public') {
-            new ResponseBuilderPublicImage(this.#req, this.#res).createResponse();
+        else if(this.#url.pathname.startsWith('/public')) {
+            new ResponseBuilderPublicResource(this.#req, this.#res).createResponse();
         }
         else {
             new ResponseBuilder404(this.#req, this.#res).createResponse();
