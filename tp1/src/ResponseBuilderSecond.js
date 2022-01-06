@@ -7,6 +7,6 @@ export default class ResponseBuilderSecond extends ResponseBuilderHTML {
     }
 
     writeResponse() {
-        this.response.write("<h1>Welcome to the second page !</h1>");
+        this.getResponse().write("<h1>Welcome to the second page !</h1>");
     }
 }

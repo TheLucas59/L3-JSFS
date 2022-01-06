@@ -6,17 +6,17 @@ export default class ResponseBuilderHTML extends ResponseBuilder {
     }
 
     setHeader() {
-        this.response.setHeader('Content-Type', this.type);
-        this.response.statusCode = this.status;
+        this.getResponse().setHeader('Content-Type', this.getType());
+        this.getResponse().statusCode = this.getStatus();
         this.createHTMLHeader();
     }
 
     createHTMLHeader() {
-        this.response.write('<html><head></head><body>');
+        this.getResponse().write('<html><head></head><body>');
     }
 
     close() {
         const now = new Date();
-        this.response.write(`<footer>${now.toString()}</footer></body></html>`);
+        this.getResponse().write(`<footer>${now.toString()}</footer></body></html>`);
     }
 }

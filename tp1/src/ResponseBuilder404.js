@@ -7,6 +7,6 @@ export default class ResponseBuilder404 extends ResponseBuilderHTML {
     }
 
     writeResponse() {
-        this.response.write(`<h1>404 : page ${this.request.url} not found</h1>`);
+        this.getResponse().write(`<h1>404 : page ${this.getRequest().url} not found</h1>`);
     }
 }

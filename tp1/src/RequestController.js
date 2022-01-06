@@ -6,10 +6,14 @@ import ResponseBuilderJSONRandom from "./ResponseBuilderJSONRandom.js";
 
 export default class RequestController {
 
+    #req;
+    #res;
+    #url;
+
     constructor(request, response) {
-        this.req = request;
-        this.res = response;
-        this.url = new URL(this.req.url, `http://${request.headers.host}`)
+        this.#req = request;
+        this.#res = response;
+        this.#url = new URL(this.#req.url, `http://${request.headers.host}`)
     }
 
     handle() {
@@ -17,23 +21,23 @@ export default class RequestController {
     }
 
     buildResponse() {
-        if(this.url.pathname == '/first') {
-            new ResponseBuilderFirst(this.req, this.res).createResponse();
+        if(this.#url.pathname == '/first') {
+            new ResponseBuilderFirst(this.#req, this.#res).createResponse();
         }
-        else if(this.url.pathname == '/second') {
-            new ResponseBuilderSecond(this.req, this.res).createResponse();
+        else if(this.#url.pathname == '/second') {
+            new ResponseBuilderSecond(this.#req, this.#res).createResponse();
         }
-        else if(this.url.pathname == '/json') {
-            new ResponseBuilderJSONAttributes(this.req, this.res).createResponse();
+        else if(this.#url.pathname == '/json') {
+            new ResponseBuilderJSONAttributes(this.#req, this.#res).createResponse();
         }
-        else if(this.url.pathname == '/random') {
-            new ResponseBuilderJSONRandom(this.req, this.res).createResponse()
+        else if(this.#url.pathname == '/random') {
+            new ResponseBuilderJSONRandom(this.#req, this.#res).createResponse()
         }
-        else if(this.url.pathname == '/public') {
-            new ResponseBuilderPublicImage(this.req, this.res).createResponse();
+        else if(this.#url.pathname == '/public') {
+            new ResponseBuilderPublicImage(this.#req, this.#res).createResponse();
         }
         else {
-            new ResponseBuilder404(this.req, this.res).createResponse();
+            new ResponseBuilder404(this.#req, this.#res).createResponse();
         }
     }
 }

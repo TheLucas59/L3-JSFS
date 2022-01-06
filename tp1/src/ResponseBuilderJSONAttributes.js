@@ -8,7 +8,7 @@ export default class ResponseBuilderJSONAttributes extends ResponseBuilderJSON {
     }
 
     writeResponse() {
-        const url = new URL(this.request.url, this.BASE);
+        const url = new URL(this.getRequest().url, this.BASE);
         const allParams = url.searchParams;
         let json = "{";
         for(const [name,val] of allParams) {
@@ -16,6 +16,6 @@ export default class ResponseBuilderJSONAttributes extends ResponseBuilderJSON {
         }
         const now = new Date();
         json += `"date":${JSON.stringify(now.toJSON())}}`
-        this.response.write(json);  
+        this.getResponse().write(json);  
     }
 }

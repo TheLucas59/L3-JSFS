@@ -7,8 +7,8 @@ export default class ResponseBuilderResource extends ResponseBuilder {
     }
 
     setHeader() {
-        this.response.setHeader('Content-Type', this.type);
-        this.response.statusCode = this.status;
+        this.getResponse().setHeader('Content-Type', this.getType());
+        this.getResponse().statusCode = this.getStatus();
     }
 
     close() {}

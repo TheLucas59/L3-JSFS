@@ -8,6 +8,6 @@ export default class ResponseBuilderJSONRandom extends ResponseBuilderJSON {
     writeResponse() {
         const randomInt = Math.floor(Math.random()*101);
         const json = `{"randomValue":"${randomInt}"}`;
-        this.response.write(json);
+        this.getResponse().write(json);
     }
 }
