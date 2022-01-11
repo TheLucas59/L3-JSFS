@@ -8,5 +8,8 @@
     "start": "node main.js"
   },
   "author": "Jean-Christophe Routier",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.4.1"
+  }
 }

@@ -35,7 +35,21 @@ const setup = () => {
             }
       }
     }
-  });
+  }); 
 }
 
 window.addEventListener('DOMContentLoaded', setup);
+
+const socket = io()
+
+socket.on('newNumber', num => {
+  console.log(num);
+  const label = myChart.data.labels.pop();
+  myChart.data.labels.unshift(label);
+ 
+  myChart.data.datasets[0].data.unshift(num);
+  myChart.data.datasets[0].data.pop();  
+  
+  myChart.update();
+});
+
