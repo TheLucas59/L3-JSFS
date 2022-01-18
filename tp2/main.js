@@ -10,5 +10,4 @@ const server = http.createServer(
 const io = new ServerIO(server);
 const socketController = new IOController(io);
 io.on('connection', socket => socketController.handleSocket(socket));
-
 server.listen(8080);
