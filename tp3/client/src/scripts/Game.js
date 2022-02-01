@@ -1,4 +1,5 @@
 import Ball from './Ball.js';
+import Paddle from './Paddle.js';
 
 
 /**
@@ -15,6 +16,7 @@ export default class Game {
     this.raf = null;
     this.canvas = canvas;
     this.ball = new Ball(this.canvas.width/2, this.canvas.height/2, this);
+    this.paddle = new Paddle(this.canvas.width*0.01, this.canvas.height*0.5-40, this)
   }
 
   /** start this game animation */
@@ -38,6 +40,13 @@ export default class Game {
     // draw and move the ball
     this.ball.move();
     this.ball.draw(ctxt);
+    this.paddle.draw(ctxt);
+    if(this.ball.collisionWith(this.paddle)) {
+      console.log('oui');
+      this.ball.x += 1; this.ball.y += 1;
+      this.ball.move();
+      this.ball.draw(ctxt);
+    }
   }
 
 }

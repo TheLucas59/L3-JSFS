@@ -6,6 +6,21 @@ const init = () => {
   const theField = document.getElementById("field");
   const theGame = new Game(theField);
 
+  const keyAction = event => {
+    switch(event.key) {
+      case "ArrowDown" :
+          theGame.paddle.moveDown();
+          break;
+      case "ArrowUp" :
+          theGame.paddle.moveUp();
+          break;
+      default: return;
+    }
+    event.preventDefault();
+  }
+
+  window.addEventListener('keydown', keyAction);
+
   document.getElementById('start').addEventListener("click", () => startGame(theGame) );
 }
 
