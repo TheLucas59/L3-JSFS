@@ -5,8 +5,7 @@
   "type": "module",
   "main": "main.js",
   "scripts": {
-    "start": "node main.js",
-    "watch": "webpack --mode=development --watch"
+    "start": "node main.js"
   },
   "author": "YOU",
   "license": "ISC"

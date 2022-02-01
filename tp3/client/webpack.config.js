@@ -2,12 +2,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
+const PRODUCTION = true;
+
 module.exports = {
 	entry: './src/scripts/pong.js',
-    mode: 'production',
+    mode: PRODUCTION ? 'production' : 'development',
 	output: {
-		path: path.resolve(__dirname, '../server/public'),
-		filename: 'main.bundle.js',
+		path: path.resolve(__dirname, PRODUCTION ? '../server/public' : 'dist'),
+		filename: 'bundle.js',
 	},
 	devServer: {
 		static: {
@@ -25,6 +27,10 @@ module.exports = {
 		}),
 		new CopyPlugin({
 			patterns: [
+		  {
+			from: 'src/scripts/*',
+			to:   'scripts/[name][ext]'
+		  },
 		  {
 			from: 'src/images/*',
 			to:   'images/[name][ext]'
