@@ -42,10 +42,9 @@ export default class Game {
     this.ball.draw(ctxt);
     this.paddle.draw(ctxt);
     if(this.ball.collisionWith(this.paddle)) {
-      console.log('oui');
-      this.ball.x += 1; this.ball.y += 1;
-      this.ball.move();
-      this.ball.draw(ctxt);
+      const absoluteSpeed = Math.abs(this.ball.shiftX) + Math.abs(this.ball.shiftY);
+      this.ball.shiftY = this.paddle.whichSegment(this.ball.y);
+      this.ball.shiftX = absoluteSpeed - this.ball.shiftY;
     }
   }
 

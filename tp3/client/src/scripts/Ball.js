@@ -1,5 +1,4 @@
 import Mobile from './Mobile.js';
-import Paddle from './Paddle.js';
 import { PADDLE_WIDTH } from './Paddle.js';
 import { PADDLE_HEIGHT } from './Paddle.js';
 
@@ -7,8 +6,8 @@ import { PADDLE_HEIGHT } from './Paddle.js';
 const BALL_IMAGE_SRC = './images/balle24.png';
 const SHIFT_X = 8;
 const SHIFT_Y = 4;
-const BALL_WIDTH = 24;
-const BALL_HEIGHT = 24;
+export const BALL_WIDTH = 24;
+export const BALL_HEIGHT = 24;
 
 /**
  * a Ball is a mobile with a ball as image and that bounces in a Game (inside the game's canvas)
@@ -44,12 +43,12 @@ export default class Ball extends Mobile {
     const rightBotCornerPaddle = [paddle.x + PADDLE_WIDTH, paddle.y + PADDLE_HEIGHT];
 
     const leftTopCornerBall = [this.x, this.y];
-    const rightBotCornerBall = [this.x + this.BALL_WIDTH, this.y + this.BALL_HEIGHT];
+    const rightBotCornerBall = [this.x + BALL_WIDTH, this.y + BALL_HEIGHT];
 
     const p1 = [Math.max(leftTopCornerPaddle[0], leftTopCornerBall[0]), Math.max(leftTopCornerPaddle[1], leftTopCornerBall[1])];
     const p2 = [Math.min(rightBotCornerPaddle[0], rightBotCornerBall[0]), Math.min(rightBotCornerPaddle[1], rightBotCornerBall[1])];
 
-    return p1[0] <= p2[0] && p1[1] <= p2[1];
+    return (p1[0] < p2[0]) && (p1[1] < p2[1]);
   }
 
 }
