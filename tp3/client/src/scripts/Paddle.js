@@ -2,7 +2,7 @@ import Mobile from './Mobile.js';
 import { BALL_WIDTH } from './Ball.js';
 import { BALL_HEIGHT } from './Ball.js';
 
-const PADDLE_IMAGE_PATH = '../images/paddle.png';
+const PADDLE_IMAGE_PATH = './images/paddle.png';
 export const PADDLE_WIDTH = 27;
 export const PADDLE_HEIGHT = 88;
 const SHIFT_X = 0;
@@ -10,7 +10,7 @@ const SHIFT_Y = 40;
 
 export default class Paddle extends Mobile {
 
-    SEGMENTS = 10;
+    SEGMENTS = 6;
 
     constructor(x, y, theGame) {
         super(x, y, PADDLE_IMAGE_PATH , SHIFT_X, SHIFT_Y);

@@ -32,8 +32,13 @@ export default class Ball extends Mobile {
     if (this.y <= 0 || (this.y+this.height >= this.theGame.canvas.height)) {
       this.shiftY = - this.shiftY;    // rebond en haut ou en bas
     }
-    else if (this.x <= 0 || this.x + this.width >= this.theGame.canvas.width ) {
-      this.shiftX = - this.shiftX;    // rebond en gauche ou à droite
+    else if (this.x + this.width >= this.theGame.canvas.width ) {
+      this.shiftX = - this.shiftX;    // rebond à droite
+    }
+    else if(this.x <= 0) {
+      this.theGame.stop()
+      this.theGame.reset()
+      document.getElementById('start').value = 'jouer'
     }
     super.move();
   }

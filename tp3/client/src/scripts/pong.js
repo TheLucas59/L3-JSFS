@@ -27,12 +27,11 @@ const init = () => {
 window.addEventListener("load",init);
 
 // true iff game is started
-let started = false;
 /** start and stop a game
  * @param {Game} theGame - the game to start and stop
  */
 const startGame = theGame => {
-  if (!started) {
+  if (!theGame.started) {
     theGame.start();
     document.getElementById('start').value = 'stop';
   }
@@ -40,5 +39,4 @@ const startGame = theGame => {
     document.getElementById('start').value = 'jouer';
     theGame.stop();
   }
-  started = ! started;
 }
