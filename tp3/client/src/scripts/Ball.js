@@ -32,15 +32,23 @@ export default class Ball extends Mobile {
     if (this.y <= 0 || (this.y+this.height >= this.theGame.canvas.height)) {
       this.shiftY = - this.shiftY;    // rebond en haut ou en bas
     }
-    else if (this.x + this.width >= this.theGame.canvas.width ) {
-      this.shiftX = - this.shiftX;    // rebond à droite
-    }
     else if(this.x <= 0) {
-      this.theGame.stop()
-      this.theGame.reset()
-      document.getElementById('start').value = 'jouer'
+      this.theGame.rightPaddle.score++     
+      document.querySelector('#score').innerHTML = this.theGame.leftPaddle.score + " - " + this.theGame.rightPaddle.score
+      this.reset()                    // reset à gauche
+    }
+    else if(this.x + this.width >= this.theGame.canvas.width) {
+      this.theGame.leftPaddle.score++
+      document.querySelector('#score').innerHTML = this.theGame.leftPaddle.score + " - " + this.theGame.rightPaddle.score
+      this.reset()                    // reset à droite
     }
     super.move();
+  }
+
+  reset() {
+    this.theGame.stop()
+    this.theGame.reset()
+    document.getElementById('start').value = 'jouer'
   }
 
   collisionWith(paddle) {

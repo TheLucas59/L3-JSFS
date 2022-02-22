@@ -9,19 +9,22 @@ const init = () => {
   const keyAction = event => {
     switch(event.key) {
       case "ArrowDown" :
-          theGame.paddle.moveDown();
+          theGame.leftPaddle.moveDown();
+          theGame.rightPaddle.moveDown();
           break;
       case "ArrowUp" :
-          theGame.paddle.moveUp();
+          theGame.leftPaddle.moveUp();
+          theGame.rightPaddle.moveUp();
           break;
       default: return;
     }
     event.preventDefault();
-  }
+  } 
 
   window.addEventListener('keydown', keyAction);
 
   document.getElementById('start').addEventListener("click", () => startGame(theGame) );
+  document.querySelector('#score').innerHTML = theGame.leftPaddle.score + " - " + theGame.rightPaddle.score
 }
 
 window.addEventListener("load",init);

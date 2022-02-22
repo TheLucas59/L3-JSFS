@@ -12,9 +12,10 @@ export default class Paddle extends Mobile {
 
     SEGMENTS = 6;
 
-    constructor(x, y, theGame) {
+    constructor(x, y, theGame, score) {
         super(x, y, PADDLE_IMAGE_PATH , SHIFT_X, SHIFT_Y);
         this.theGame = theGame;
+        this.score = score;
     }
 
     moveUp() {
