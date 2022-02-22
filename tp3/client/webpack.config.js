@@ -8,7 +8,7 @@ module.exports = {
 	entry: './src/scripts/pong.js',
     mode: PRODUCTION ? 'production' : 'development',
 	output: {
-		path: path.resolve(__dirname, PRODUCTION ? '../server/public' : 'dist'),
+		path: path.resolve(__dirname, '../server/public'),	// PRODUCTION ? '../server/public' : 'dist'
 		filename: 'bundle.js',
 	},
 	devServer: {

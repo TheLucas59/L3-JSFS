@@ -7,6 +7,9 @@
   "scripts": {
     "start": "node main.js"
   },
+  "dependencies": {
+    "socket.io": "^4.4.1"
+  },
   "author": "YOU",
   "license": "ISC"
 }

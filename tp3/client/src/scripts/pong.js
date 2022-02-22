@@ -4,7 +4,8 @@ import Game from './Game.js';
 
 const init = () => {
   const theField = document.getElementById("field");
-  const theGame = new Game(theField);
+  const socket = io()
+  const theGame = new Game(theField, socket);
 
   const keyAction = event => {
     switch(event.key) {
@@ -25,6 +26,7 @@ const init = () => {
 
   document.getElementById('start').addEventListener("click", () => startGame(theGame) );
   document.querySelector('#score').innerHTML = theGame.leftPaddle.score + " - " + theGame.rightPaddle.score
+
 }
 
 window.addEventListener("load",init);

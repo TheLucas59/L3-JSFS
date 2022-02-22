@@ -11,13 +11,28 @@ export default class Game {
    *
    * @param  {Canvas} canvas the canvas of the game
    */
-  constructor(canvas) {
+  constructor(canvas, socket) {
     this.raf = null;
     this.canvas = canvas;
     this.ball = this.setBasicBall()
     this.leftPaddle = this.setBasicLeftPaddle(0)
     this.rightPaddle = this.setBasicRightPaddle(0)
     this.started = false
+    this.socket = socket
+    this.setSocketEventsListeners()
+  }
+
+  setSocketEventsListeners() {
+    console.log(this.socket)
+    this.socket.on('TooMuchConnections', () => {
+      console.log('Too much clients connected');
+    });
+    this.socket.on('firstPlayer', () => {
+      document.querySelector('#player').innerHTML = "Player 1";
+    });
+    this.socket.on('secondPlayer', () => {
+      document.querySelector('#player').innerHTML = "Player 2";
+    });
   }
 
   setBasicBall() {
