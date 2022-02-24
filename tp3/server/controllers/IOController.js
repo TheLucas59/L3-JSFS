@@ -23,7 +23,13 @@ export default class IOController {
         else {
             this.#server.to(socket.id).emit('secondPlayer');
         }
-        console.log(this.#clients.size)
+        socket.on('disconnected', () => {
+            if(this.#clients.size > 0) {
+                this.#server.to(this.#clients.keys().next().value).emit('otherPlayerDisconnected');
+            }
+            this.#clients.delete(socket.id)
+            console.log(`Client ${socket.id} disconnected`)
+        });
         socket.on('disconnect', () => {
             this.#clients.delete(socket.id)
             console.log(`Client ${socket.id} disconnected`)

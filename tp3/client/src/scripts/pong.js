@@ -4,7 +4,7 @@ import Game from './Game.js';
 
 const init = () => {
   const theField = document.getElementById("field");
-  const socket = io()
+  const socket = io();
   const theGame = new Game(theField, socket);
 
   const keyAction = event => {
@@ -24,7 +24,9 @@ const init = () => {
 
   window.addEventListener('keydown', keyAction);
 
-  document.getElementById('start').addEventListener("click", () => startGame(theGame) );
+  document.getElementById('start').addEventListener("click", () => {
+    startGame(theGame)
+  });
   document.querySelector('#score').innerHTML = theGame.leftPaddle.score + " - " + theGame.rightPaddle.score
 
 }
@@ -35,13 +37,13 @@ window.addEventListener("load",init);
 /** start and stop a game
  * @param {Game} theGame - the game to start and stop
  */
-const startGame = theGame => {
+const startGame = (theGame, socket) => {
   if (!theGame.started) {
     theGame.start();
-    document.getElementById('start').value = 'stop';
+    document.querySelector('#start').value = 'Se déconnecter';
   }
   else {
-    document.getElementById('start').value = 'jouer';
+    document.getElementById('start').value = 'Jouer';
     theGame.stop();
   }
 }

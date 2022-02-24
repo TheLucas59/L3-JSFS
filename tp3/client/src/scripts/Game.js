@@ -23,15 +23,33 @@ export default class Game {
   }
 
   setSocketEventsListeners() {
-    console.log(this.socket)
     this.socket.on('TooMuchConnections', () => {
-      console.log('Too much clients connected');
+      document.querySelector('#player').innerHTML = "Deux joueurs sont déjà connectés au jeu. Vous ne pouvez pas jouer tout de suite.";
+      document.querySelector('#start').disabled = true
     });
     this.socket.on('firstPlayer', () => {
-      document.querySelector('#player').innerHTML = "Player 1";
+      document.querySelector('#player').innerHTML = "Joueur 1";
+      document.querySelector('#start').disabled = false
     });
     this.socket.on('secondPlayer', () => {
-      document.querySelector('#player').innerHTML = "Player 2";
+      document.querySelector('#player').innerHTML = "Joueur 2";
+      document.querySelector('#start').disabled = false
+    });
+    this.socket.on('otherPlayerDisconnected', () => {
+      document.querySelector('#player').innerHTML = "L'autre joueur s'est déconnecté";
+      document.querySelector('#start').disabled = true
+      document.querySelector('#start').value = 'Jouer'; 
+      this.socket.emit('disconnected')
+      this.stop()
+    });
+
+    document.getElementById('start').addEventListener("click", () => {
+      if(document.querySelector('#start').value === 'Se déconnecter') {
+        this.socket.emit('disconnected');
+        document.querySelector('#start').value = 'Jouer';
+        document.querySelector('#player').innerHTML = "Déconnecté";
+        document.querySelector('#start').disabled = true
+      }
     });
   }
 
