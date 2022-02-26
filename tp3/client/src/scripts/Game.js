@@ -20,6 +20,7 @@ export default class Game {
     this.started = false
     this.socket = socket
     this.setSocketEventsListeners()
+    this.player = 0
   }
 
   setSocketEventsListeners() {
@@ -29,11 +30,15 @@ export default class Game {
     });
     this.socket.on('firstPlayer', () => {
       document.querySelector('#player').innerHTML = "Joueur 1";
-      document.querySelector('#start').disabled = false
+      this.player = 1
+      this.setControls()
+      this.setRightPaddleMovementByMessage()
     });
     this.socket.on('secondPlayer', () => {
       document.querySelector('#player').innerHTML = "Joueur 2";
-      document.querySelector('#start').disabled = false
+      this.player = 2
+      this.setControls()
+      this.setLeftPaddleMovementByMessage()
     });
     this.socket.on('otherPlayerDisconnected', () => {
       document.querySelector('#player').innerHTML = "L'autre joueur s'est déconnecté";
@@ -110,4 +115,54 @@ export default class Game {
     }
   }
 
+  setControls() {
+    const keyAction = event => {
+      switch(event.key) {
+        case "ArrowDown" :
+          if(this.player == 1) {
+            this.leftPaddle.moveDown();
+            console.log('player 1 : move down')
+            this.socket.emit('moveDownLeft')
+          }
+          if(this.player == 2) {
+            this.rightPaddle.moveDown();
+            this.socket.emit('moveDownRight')
+          }
+          break;
+        case "ArrowUp" :
+          if(this.player == 1) {
+            this.leftPaddle.moveUp();
+            this.socket.emit('moveUpLeft')
+        }
+          if(this.player == 2) {
+            this.rightPaddle.moveUp();
+            this.socket.emit('moveUpRight')
+          }
+        break;
+        default: return;
+      }
+      event.preventDefault();
+    } 
+  
+    window.addEventListener('keydown', keyAction);
+  }
+
+  setRightPaddleMovementByMessage() {
+    this.socket.on('moveUpRight', () => {
+      this.rightPaddle.moveUp()
+    })
+    this.socket.on('moveDownRight', () => {
+      this.rightPaddle.moveDown()
+    })
+  }
+
+  setLeftPaddleMovementByMessage() {
+    this.socket.on('moveUpLeft', () => {
+      this.leftPaddle.moveUp()
+    })
+    this.socket.on('moveDownLeft', () => {
+      console.log('player 2 : message reçu, left move down')
+      this.leftPaddle.moveDown()
+    })
+  }
 }
