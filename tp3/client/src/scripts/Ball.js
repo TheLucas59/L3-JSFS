@@ -35,11 +35,13 @@ export default class Ball extends Mobile {
     else if(this.x <= 0) {
       this.theGame.rightPaddle.score++     
       document.querySelector('#score').innerHTML = this.theGame.leftPaddle.score + " - " + this.theGame.rightPaddle.score
+      this.theGame.socket.emit('score', this.theGame.leftPaddle.score, this.theGame.rightPaddle.score);
       this.reset()                    // reset à gauche
     }
     else if(this.x + this.width >= this.theGame.canvas.width) {
       this.theGame.leftPaddle.score++
       document.querySelector('#score').innerHTML = this.theGame.leftPaddle.score + " - " + this.theGame.rightPaddle.score
+      this.theGame.socket.emit('score', this.theGame.leftPaddle.score, this.theGame.rightPaddle.score);
       this.reset()                    // reset à droite
     }
     super.move();

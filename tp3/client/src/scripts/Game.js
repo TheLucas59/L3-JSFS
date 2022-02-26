@@ -37,8 +37,15 @@ export default class Game {
     this.socket.on('secondPlayer', () => {
       document.querySelector('#player').innerHTML = "Joueur 2";
       this.player = 2
+      document.querySelector('#start').disabled = true
       this.setControls()
       this.setLeftPaddleMovementByMessage()
+      this.socket.on('startGame', () => {
+        document.querySelector('#player').innerHTML = "L'autre joueur a commencé la partie";
+        document.querySelector('#start').disabled = false
+        document.querySelector('#start').value = 'Se déconnecter'; 
+        this.start()
+      })
     });
     this.socket.on('otherPlayerDisconnected', () => {
       document.querySelector('#player').innerHTML = "L'autre joueur s'est déconnecté";
@@ -56,6 +63,7 @@ export default class Game {
         document.querySelector('#start').disabled = true
       }
     });
+    this.handleBallSynchronicity()
   }
 
   setBasicBall() {
@@ -73,6 +81,9 @@ export default class Game {
   /** start this game animation */
   start() {
     this.started = true;
+    if(this.player == 1) {
+      this.socket.emit('startGame')
+    }
     this.animate();
   }
   /** stop this game animation */
@@ -107,11 +118,13 @@ export default class Game {
       const absoluteSpeed = Math.abs(this.ball.shiftX) + Math.abs(this.ball.shiftY);
       this.ball.shiftY = this.leftPaddle.whichSegment(this.ball.y);
       this.ball.shiftX = absoluteSpeed - this.ball.shiftY;
+      this.socket.emit('ball', this.ball.x, this.ball.y, this.ball.shiftX, this.ball.shiftY)
     }
     if(this.ball.collisionWith(this.rightPaddle)) {
       const absoluteSpeed = Math.abs(this.ball.shiftX) + Math.abs(this.ball.shiftY);
       this.ball.shiftY = this.rightPaddle.whichSegment(this.ball.y);
       this.ball.shiftX = -(absoluteSpeed - this.ball.shiftY);
+      this.socket.emit('ball', this.ball.x, this.ball.y, this.ball.shiftX, this.ball.shiftY)
     }
   }
 
@@ -121,7 +134,6 @@ export default class Game {
         case "ArrowDown" :
           if(this.player == 1) {
             this.leftPaddle.moveDown();
-            console.log('player 1 : move down')
             this.socket.emit('moveDownLeft')
           }
           if(this.player == 2) {
@@ -161,8 +173,24 @@ export default class Game {
       this.leftPaddle.moveUp()
     })
     this.socket.on('moveDownLeft', () => {
-      console.log('player 2 : message reçu, left move down')
       this.leftPaddle.moveDown()
+    })
+  }
+
+  handleBallSynchronicity() {
+    this.socket.on('ball', (x, y, shiftX, shiftY) => {
+      this.ball.x = x
+      this.ball.y = y
+      this.ball.shiftX = shiftX
+      this.ball.shiftY = shiftY
+    })
+  }
+
+  handleScoreSynchronicity() {
+    this.socket.on('score', (scoreLeft, scoreRight) => {
+      console.log('oui')
+      this.leftPaddle.score = scoreLeft
+      this.rightPaddle.score = scoreRight
     })
   }
 }

@@ -12,6 +12,7 @@ export default class IOController {
         this.connectClient(socket)
         this.acceptClient(socket)
         this.handlePaddleMovementMessagesToClients(socket)
+        this.handleStartOfTheGame(socket)
         this.disconnectClient(socket)
     }
 
@@ -33,7 +34,7 @@ export default class IOController {
         else {
             this.#server.to(socket.id).emit('secondPlayer');
             this.#clients.forEach((socket) => {
-                this.#server.to(socket.id).emit('startGame');
+                this.#server.to(socket.id).emit('ready');
             })
         }
     }
@@ -78,6 +79,34 @@ export default class IOController {
         })
         socket.on('moveDownLeft', () => {
             this.#server.to(this.#clients[1].id).emit('moveDownLeft')
+        })
+    }
+
+    handleStartOfTheGame(socket) {
+        socket.on('startGame', () => {
+            this.#server.to(this.#clients[1].id).emit('startGame')
+        })
+    }
+
+    handleBallSynchronicity(socket) {
+        socket.on('ball', (x, y, shiftX, shiftY) => {
+            if(socket.id === this.#clients[0]) {
+                this.#server.to(this.#clients[1].id).emit('ball', x, y, shiftX, shiftY)
+            }
+            else {
+                this.#server.to(this.#clients[0].id).emit('ball', x, y, shiftX, shiftY)
+            }
+        })
+    }
+
+    handleScoreSynchronicity(socket) {
+        socket.on('score', (scoreLeft, scoreRight) => {
+            if(socket.id === this.#clients[0]) {
+                this.#server.to(this.#clients[1].id).emit('score', scoreLeft, scoreRight)
+            }
+            else {
+                this.#server.to(this.#clients[0].id).emit('score', scoreLeft, scoreRight)
+            }
         })
     }
 }
