@@ -50,7 +50,10 @@ export default class Ball extends Mobile {
   reset() {
     this.theGame.stop()
     this.theGame.reset()
-    document.getElementById('start').value = 'jouer'
+    document.querySelector('#start').value = 'Jouer'
+    if(this.theGame.player == 2) {
+      document.querySelector('#start').disabled = true
+    }
   }
 
   collisionWith(paddle) {

@@ -13,7 +13,9 @@ const init = () => {
   document.querySelector('#start').disabled = true
   document.querySelector('#score').innerHTML = theGame.leftPaddle.score + " - " + theGame.rightPaddle.score
   socket.on('ready', () => {
-    document.querySelector('#start').disabled = false
+    if(theGame.player == 1) {
+      document.querySelector('#start').disabled = false
+    }
   })
 }
 

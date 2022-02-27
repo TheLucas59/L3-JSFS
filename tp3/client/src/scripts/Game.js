@@ -64,6 +64,7 @@ export default class Game {
       }
     });
     this.handleBallSynchronicity()
+    this.handleScoreSynchronicity()
   }
 
   setBasicBall() {
@@ -118,12 +119,19 @@ export default class Game {
       const absoluteSpeed = Math.abs(this.ball.shiftX) + Math.abs(this.ball.shiftY);
       this.ball.shiftY = this.leftPaddle.whichSegment(this.ball.y);
       this.ball.shiftX = absoluteSpeed - this.ball.shiftY;
-      this.socket.emit('ball', this.ball.x, this.ball.y, this.ball.shiftX, this.ball.shiftY)
+      if(this.player == 1) {
+        this.socket.emit('ball', this.ball.x, this.ball.y, this.ball.shiftX, this.ball.shiftY)
+      }
     }
     if(this.ball.collisionWith(this.rightPaddle)) {
       const absoluteSpeed = Math.abs(this.ball.shiftX) + Math.abs(this.ball.shiftY);
       this.ball.shiftY = this.rightPaddle.whichSegment(this.ball.y);
       this.ball.shiftX = -(absoluteSpeed - this.ball.shiftY);
+      if(this.player == 1) {
+       this.socket.emit('ball', this.ball.x, this.ball.y, this.ball.shiftX, this.ball.shiftY)
+      }
+    }
+    if(this.ball.x == this.canvas.width/2 && this.player == 1) {
       this.socket.emit('ball', this.ball.x, this.ball.y, this.ball.shiftX, this.ball.shiftY)
     }
   }
@@ -188,7 +196,6 @@ export default class Game {
 
   handleScoreSynchronicity() {
     this.socket.on('score', (scoreLeft, scoreRight) => {
-      console.log('oui')
       this.leftPaddle.score = scoreLeft
       this.rightPaddle.score = scoreRight
     })

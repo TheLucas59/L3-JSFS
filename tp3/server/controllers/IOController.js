@@ -13,6 +13,8 @@ export default class IOController {
         this.acceptClient(socket)
         this.handlePaddleMovementMessagesToClients(socket)
         this.handleStartOfTheGame(socket)
+        this.handleBallSynchronicity(socket)
+        this.handleScoreSynchronicity(socket)
         this.disconnectClient(socket)
     }
 
