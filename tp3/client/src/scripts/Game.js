@@ -159,6 +159,13 @@ export default class Game {
             this.socket.emit('moveUpRight')
           }
         break;
+        case " " :
+          if(this.player == 1) {
+            if(!document.querySelector('#start').disabled) {
+              this.start()
+            }
+          }
+          break;
         default: return;
       }
       event.preventDefault();
