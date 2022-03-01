@@ -140,21 +140,21 @@ export default class Game {
     const keyAction = event => {
       switch(event.key) {
         case "ArrowDown" :
-          if(this.player == 1) {
+          if(this.player == 1 && this.started) {
             this.leftPaddle.moveDown();
             this.socket.emit('moveDownLeft')
           }
-          if(this.player == 2) {
+          if(this.player == 2 && this.started) {
             this.rightPaddle.moveDown();
             this.socket.emit('moveDownRight')
           }
           break;
         case "ArrowUp" :
-          if(this.player == 1) {
+          if(this.player == 1 && this.started) {
             this.leftPaddle.moveUp();
             this.socket.emit('moveUpLeft')
         }
-          if(this.player == 2) {
+          if(this.player == 2 && this.started) {
             this.rightPaddle.moveUp();
             this.socket.emit('moveUpRight')
           }
