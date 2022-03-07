@@ -82,6 +82,13 @@ export default class IOController {
         socket.on('moveDownLeft', () => {
             this.#server.to(this.#clients[1].id).emit('moveDownLeft')
         })
+
+        socket.on('stopMoveRight', () => {
+            this.#server.to(this.#clients[0].id).emit('stopMoveRight')
+        })
+        socket.on('stopMoveLeft', () => {
+            this.#server.to(this.#clients[1].id).emit('stopMoveLeft')
+        })
     }
 
     handleStartOfTheGame(socket) {

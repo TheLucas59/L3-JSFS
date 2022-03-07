@@ -96,7 +96,9 @@ export default class Game {
   reset() {
     this.ball = this.setBasicBall()
     this.leftPaddle = this.setBasicLeftPaddle(this.leftPaddle.score)
+    this.leftPaddle.stopMoving()
     this.rightPaddle = this.setBasicRightPaddle(this.rightPaddle.score)
+    this.rightPaddle.stopMoving()
   }
 
   /** animate the game : move and draw */
@@ -113,6 +115,8 @@ export default class Game {
     // draw and move the ball
     this.ball.move();
     this.ball.draw(ctxt);
+    this.leftPaddle.move();
+    this.rightPaddle.move();
     this.leftPaddle.draw(ctxt);
     this.rightPaddle.draw(ctxt);
     if(this.ball.collisionWith(this.leftPaddle)) {
@@ -137,7 +141,7 @@ export default class Game {
   }
 
   setControls() {
-    const keyAction = event => {
+    const keyDownAction = event => {
       switch(event.key) {
         case "ArrowDown" :
           if(this.player == 1 && this.started) {
@@ -153,12 +157,12 @@ export default class Game {
           if(this.player == 1 && this.started) {
             this.leftPaddle.moveUp();
             this.socket.emit('moveUpLeft')
-        }
+          }
           if(this.player == 2 && this.started) {
             this.rightPaddle.moveUp();
             this.socket.emit('moveUpRight')
           }
-        break;
+          break;
         case " " :
           if(this.player == 1) {
             if(!document.querySelector('#start').disabled) {
@@ -170,8 +174,36 @@ export default class Game {
       }
       event.preventDefault();
     } 
+
+    const keyUpAction = event => {
+      switch (event.key) {
+          case "ArrowDown":
+            if(this.player == 1 && this.started) {
+              this.leftPaddle.stopMoving();
+              this.socket.emit('stopMoveLeft')
+            }
+            if(this.player == 2 && this.started) {
+              this.rightPaddle.stopMoving();
+              this.socket.emit('stopMoveRight')
+            }
+            break;
+          case "ArrowUp":
+            if(this.player == 1 && this.started) {
+              this.leftPaddle.stopMoving();
+              this.socket.emit('stopMoveLeft')
+            }
+            if(this.player == 2 && this.started) {
+              this.rightPaddle.stopMoving();
+              this.socket.emit('stopMoveRight')
+            }
+            break;
+          default: return;
+      }
+      event.preventDefault();
+  }
   
-    window.addEventListener('keydown', keyAction);
+    window.addEventListener('keydown', keyDownAction);
+    window.addEventListener('keyup', keyUpAction);
   }
 
   setRightPaddleMovementByMessage() {
@@ -181,6 +213,10 @@ export default class Game {
     this.socket.on('moveDownRight', () => {
       this.rightPaddle.moveDown()
     })
+
+    this.socket.on('stopMoveRight', () => {
+      this.rightPaddle.stopMoving()
+    })
   }
 
   setLeftPaddleMovementByMessage() {
@@ -189,6 +225,10 @@ export default class Game {
     })
     this.socket.on('moveDownLeft', () => {
       this.leftPaddle.moveDown()
+    })
+
+    this.socket.on('stopMoveLeft', () => {
+      this.leftPaddle.stopMoving()
     })
   }
 
