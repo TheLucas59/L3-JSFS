@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
-const itemSchema = require('./Item');
+const dbConnection = require('../controllers/dbController');
 
 const userSchema = new mongoose.Schema({
-    name : String,
-    password : String,
+    name : { type : String, required : true },
+    password : { type : String, required : true },
     balance : {type : Number, min : 100},
   });
 
+
+const User = dbConnection.model('Users', userSchema, 'users')
 module.exports = userSchema;
+module.exports.model = User

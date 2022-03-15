@@ -6,4 +6,6 @@ const itemSchema = new mongoose.Schema({
     user_id : mongoose.ObjectId
   });
 
+const Item = dbConnection.model('Items', itemSchema, 'items')
 module.exports = itemSchema;
+module.exports.model = Item
