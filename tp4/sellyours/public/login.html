@@ -5,13 +5,32 @@
   <title>login/register</title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"/>
 
-  <!--script src="../javascripts/login.client.js" defer="true"/></script-->
+  <script src="../javascripts/loginClient.js" defer="true"/></script>
 </head>
 
 <body>
   <h1>Exemple pour JWT</h1>
 
-  <div id="userdata">
+  <form id="userdata">
+    <label for="username">Nom
+      <input type="text" placeholder="nom" value="" id="username"/>
+    </label>
+    <br/>
+    <label>Mot de passe
+      <input type="password" placeholder="mot de passe" value="" id="password"/>
+    </label>
+    <br/>
+    <label>
+        <button type="submit">Login</button>
+    </label>
+  </form>
+  <div>
+    ou <a href="/access/register">créez un compte</a>
+  </div>
+
+  <div id="problem"></div>
+
+  <!--div id="userdata">
     <div>
       <label for="userlogin">Login
         <input type="text" placeholder="login" value="" id="userlogin"/>
@@ -25,12 +44,9 @@
   </div>
   <div id="controls">
     <button id="login">Login</button>
-  </div>
-  <div>
-    ou <a href="/access/register">créez un compte</a>
-  </div>
+  </div-->
+  
 
-  <div id="problem"></div>
 </body>
 
 </html>

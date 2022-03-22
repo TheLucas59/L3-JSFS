@@ -12,7 +12,7 @@ class RegistrationHandler {
             method :'POST',
             headers: { 'Content-Type': 'application/json' },
             body : JSON.stringify({
-                name : nameInput.value,
+                login : nameInput.value,
                 password : passwordInput.value
             })                    
         };

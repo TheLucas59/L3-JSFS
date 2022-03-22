@@ -2,6 +2,10 @@ const userSchema = require('../models/User').model
 const bcrypt = require('bcrypt');
 //const User = require('../models/user.model').model;
 
+const jwt = require('jsonwebtoken');
+const jwtConfig = require('../config/jwt.config');
+
+
 const register = async (req, res) => {
   // hash password using bcrypt
   const salt = await bcrypt.genSalt();
@@ -9,7 +13,7 @@ const register = async (req, res) => {
 
   try {
     const userData = {
-                        name : req.body.name,
+                        login : req.body.login,
                         password: hashPassword,   // replace password by crypted version
                         balance : 100
                      };
@@ -25,7 +29,9 @@ const register = async (req, res) => {
 const login = async (req, res) => {
     try {
       // check if user exist
-      const user = await User.findOne( { login : req.body.login });
+      const user = await userSchema.findOne( { login : req.body.login });
+      console.log(user)
+      console.log(req.body.login)
       if (user) {
         // check password
         const validPassword = await bcrypt.compare(req.body.password, user.password);
