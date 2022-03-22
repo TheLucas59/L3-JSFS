@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
-    name : String,
-    price : {type : Number, min : 1},
+    name : {type : String, required : true},
+    description : String,
+    price : {type : Number, min : 1, required : true},
     user_id : mongoose.ObjectId
   });
 

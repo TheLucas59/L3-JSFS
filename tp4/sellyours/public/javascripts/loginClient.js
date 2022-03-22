@@ -26,7 +26,7 @@ class LoginHandler {
     const response = await fetch(`/access/login`, requestOptions);
     if (response.ok) {
       const loggedUser = await response.json();
-      window.location.href = '/';
+      window.location.href = '/item/others';
     }
     else {
       const error = await response.json();

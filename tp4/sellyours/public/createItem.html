@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <title>login/register</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css"/>
+
+  <script src="../javascripts/createItem.js" defer="true"/></script>
+</head>
+
+<body>
+  <h1>Se connecter</h1>
+
+  <form id="itemdata">
+    <label for="name">Nom de l'objet
+      <input type="text" placeholder="nom de l'objet" value="" id="itemName"/>
+    </label>
+    <br/>
+    <label>Description
+      <input type="text" placeholder="description" value="" id="description"/>
+    </label>
+    <br/>
+    <label>Prix
+        <input type="number" name="price" id="price" min="1"/>
+    </label>
+    <label>
+        <button type="submit">Enregistrer</button>
+    </label>
+  </form>
+
+  <div id="problem"></div>
+
+</body>
+
+</html>
