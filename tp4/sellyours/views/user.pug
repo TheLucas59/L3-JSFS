@@ -1,0 +1,13 @@
+extends layout 
+
+block content
+    h1= "Votre profil"
+    p Bonjour #{user.login}
+    p Vous possédez #{user.balance} €
+    p Voici vos objets actuellement en vente : 
+    table.itemList
+        each item in items
+            tr.item(data-id= item._id)
+                td.name= item.name
+                td.description= item.description
+                td.price= item.price

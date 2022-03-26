@@ -9,6 +9,6 @@ router.post('/login', accessController.login );
 router.get('/register', accessController.registerForm );
 router.post('/register', accessController.register );
 
-//router.get('/logout', accessController.logout );
+router.get('/logout', accessController.logout);
 
 module.exports = router;

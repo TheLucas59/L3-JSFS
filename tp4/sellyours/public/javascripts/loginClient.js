@@ -1,10 +1,3 @@
-/*const setup = () => {
-  userlogin = document.getElementById('userlogin');
-  userpassword = document.getElementById('userpassword');
-  document.getElementById('login').addEventListener('click', login);
-}
-window.addEventListener('DOMContentLoaded', setup);*/
-
 document.querySelector('#userdata').addEventListener('submit', event => {
   event.preventDefault()
   const handler = new LoginHandler()
@@ -25,8 +18,7 @@ class LoginHandler {
                         };
     const response = await fetch(`/access/login`, requestOptions);
     if (response.ok) {
-      const loggedUser = await response.json();
-      window.location.href = '/item/others';
+      window.location.href = '/users/me';
     }
     else {
       const error = await response.json();

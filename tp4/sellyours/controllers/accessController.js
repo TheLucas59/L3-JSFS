@@ -37,7 +37,6 @@ const login = async (req, res) => {
   
         // create and send token
         const token = jwt.sign({id: user._id}, jwtConfig.SECRET_TOKEN, {expiresIn : '60s'} );
-        console.log(`login : ${token}`);
         res.cookie('token', token,  { maxAge : 60000, httpOnly: true, sameSite : 'strict' })  // secure : true (avec https)
         res.status(200).json({ message : 'utilisateur connecté' });
       }
@@ -56,7 +55,13 @@ const loginForm = (_,res) => res.redirect('/login.html');
 
 const registerForm = (_,res) => res.redirect('/register.html');
 
+const logout = (req,res) => {
+  res.cookie('token', '',  { maxAge : 2000, httpOnly: true, sameSite : 'strict' }) // secure : true
+  res.status(200).json({ message : 'utilisateur déconnecté' });
+}
+
 module.exports.loginForm = loginForm
 module.exports.login = login
 module.exports.registerForm = registerForm
 module.exports.register = register
+module.exports.logout = logout
