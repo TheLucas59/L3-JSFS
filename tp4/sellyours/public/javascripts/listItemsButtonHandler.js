@@ -15,12 +15,13 @@ buttons.forEach(button => {
             }
             const response = await fetch(`/buy/${itemId}`, requestOptions);
             if (response.ok) {
-                const createdUser = await response.json();
+                const itemBought = await response.json();
+                sessionStorage.setItem('lastBought', JSON.stringify(itemBought))
                 window.location.href = '/users/me';
             }
             else {
                 const error = await response.json();
-                document.getElementById('problem').textContent = `erreur : ${error.message}`;
+                alert(error.message)
             }
         }
     })

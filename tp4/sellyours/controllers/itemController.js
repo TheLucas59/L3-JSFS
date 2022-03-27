@@ -19,13 +19,19 @@ const createPost = async (req, res) => {
 const getOthers = async (req, res) => {
     const allItems = await itemSchema.find().where('user_id').ne(req.userId)
     res.render('listItems', {
-        title : 'Objets à vendre',
+        title : 'Sellyours - Objets à vendre',
         items : allItems
     });
 }
 
-const createGet = (_,res) => res.redirect('/createItem.html');
+const createGet = (_,res) => res.render('createItem');
+
+const deleteItem = async (req, res) => {
+    const deletedItem = await itemSchema.findByIdAndDelete(req.params.itemId)
+    res.status(200).json({ message : 'objet supprimé'})
+}
 
 module.exports.createPost = createPost
 module.exports.createGet = createGet
 module.exports.getOthers = getOthers
+module.exports.deleteItem = deleteItem

@@ -6,13 +6,25 @@ block content
     h1= "Votre profil"
     p Bonjour #{user.login}
     p Vous possédez #{user.balance} €
+    button#money Créditer votre compte
+    br/
+    div.lastBought
+        p.lastBought Voici le dernier objet que vous avez acheté :
+        br/
+        table.lastBought
+            tr.lastBought 
+                td#lastBoughtName(class= "lastBought") 
+                td#lastBoughtDescription(class= "lastBought") 
+                td#lastBoughtPrice(class= "lastBought")
     p Voici vos objets actuellement en vente : 
     table.itemList
         each item in items
-            tr.item(data-id= item._id)
+            tr.item
                 td.name= item.name
                 td.description= item.description
                 td.price= item.price
+                td 
+                    button.delete(data_id= item._id user_id= item.user_id) Retirer de la vente
     button#sell Mettre en vente un objet 
     button#listAll Accéder à la liste des objets en vente
     button#logout Se déconnecter

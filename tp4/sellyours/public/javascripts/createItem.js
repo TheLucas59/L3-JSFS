@@ -1,3 +1,8 @@
+document.querySelector('#me').addEventListener('click', event => {
+    event.preventDefault()
+    window.location.href = '/users/me'
+})
+
 document.querySelector('#itemdata').addEventListener('submit', event => {
     event.preventDefault()
     const handler = new ItemHandler()
@@ -23,7 +28,7 @@ class ItemHandler {
                         };
         const response = await fetch("/item", requestOptions)
         if(response.ok) {
-            window.location.href = '/item/others'
+            window.location.href = '/users/me'
         }
         else {
             const error = await response.json();
