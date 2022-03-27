@@ -1,5 +1,7 @@
 extends layout 
 
+block scripts
+    script(src="/javascripts/userButtonHandler.js" defer=true)
 block content
     h1= "Votre profil"
     p Bonjour #{user.login}
@@ -11,3 +13,6 @@ block content
                 td.name= item.name
                 td.description= item.description
                 td.price= item.price
+    button#sell Mettre en vente un objet 
+    button#listAll Accéder à la liste des objets en vente
+    button#logout Se déconnecter

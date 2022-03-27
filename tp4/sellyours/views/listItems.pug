@@ -1,10 +1,15 @@
 extends layout 
 
+block scripts
+    script(src="/javascripts/listItemsButtonHandler.js" defer=true)
 block content
     h1= title
+    button#me Retourner sur votre profil
     table.itemList
         each item in items
-            tr.item(data-id= item._id)
+            tr.item
                 td.name= item.name
                 td.description= item.description
                 td.price= item.price
+                td
+                    button.buy(user_id= item.user_id data_id= item._id) Acheter

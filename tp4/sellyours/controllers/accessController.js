@@ -57,6 +57,7 @@ const registerForm = (_,res) => res.redirect('/register.html');
 
 const logout = (req,res) => {
   res.cookie('token', '',  { maxAge : 2000, httpOnly: true, sameSite : 'strict' }) // secure : true
+  res.render('logout')
   res.status(200).json({ message : 'utilisateur déconnecté' });
 }
 
