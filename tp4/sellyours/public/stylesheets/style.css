@@ -10,3 +10,11 @@ a {
 .lastBought {
   display: none;
 }
+
+#creditValue {
+  display: none;
+}
+
+#credit {
+  display: none;
+}

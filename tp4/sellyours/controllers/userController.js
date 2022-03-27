@@ -11,4 +11,12 @@ const me = async (req, res) => {
     })
 }
 
+const credit = async (req, res) => {
+    const user = await userSchema.findById(req.userId)
+    const newAmount = user.balance + req.body.amountToAdd
+    const updatedUser = await userSchema.findByIdAndUpdate(req.userId, { balance : newAmount })
+    res.status(200).json(updatedUser)
+}
+
 module.exports.me = me
+module.exports.credit = credit

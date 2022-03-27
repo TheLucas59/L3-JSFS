@@ -6,8 +6,10 @@ block content
     h1= "Votre profil"
     p Bonjour #{user.login}
     p Vous possédez #{user.balance} €
-    button#money Créditer votre compte
-    br/
+    div#creditArea
+        button#money Créditer votre compte
+        input#creditValue(type= "number")
+        button#credit Créditer
     div.lastBought
         p.lastBought Voici le dernier objet que vous avez acheté :
         br/

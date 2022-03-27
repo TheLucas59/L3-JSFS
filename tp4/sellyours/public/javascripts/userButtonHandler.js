@@ -23,6 +23,38 @@ if(lastBought != null) {
     })
 }
 
+const creditTrigger = document.querySelector('#money')
+const creditValue = document.querySelector('#creditValue')
+const creditButton = document.querySelector('#credit')
+creditTrigger.addEventListener('click', () => {
+    creditTrigger.style.display = 'none'
+    creditValue.style.display = 'inline'
+    creditButton.style.display = 'inline'
+})
+
+creditButton.addEventListener('click', async () => {
+    const amount = creditValue.value
+    if(confirm(`Voulez-vous créditer votre compte de ${amount}€ supplémentaire ?`)) {
+        const body = {
+            amountToAdd : parseInt(amount)
+        }
+        const requestOptions = {
+            method : 'PUT',
+            headers: { 'Content-Type': 'application/json' },                   
+            body : JSON.stringify(body)
+        }
+        const response = await fetch(`/users/me/money`, requestOptions)
+        if (response.ok) {
+            alert("Votre compte a été crédité avec succès.")
+            window.location.href = '/users/me';
+        }
+        else {
+            const error = await response.json();
+            document.getElementById('problem').textContent = `erreur : ${error.message}`;
+        }
+    }
+})
+
 const deleteButtons = document.querySelectorAll('.delete')
 deleteButtons.forEach(button => {
     button.addEventListener('click', async event => {
