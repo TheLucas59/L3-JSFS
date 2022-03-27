@@ -18,3 +18,11 @@ a {
 #credit {
   display: none;
 }
+
+#modifyValue {
+  display: none;
+}
+
+#value {
+  display: none;
+}

@@ -31,7 +31,16 @@ const deleteItem = async (req, res) => {
     res.status(200).json({ message : 'objet supprimé'})
 }
 
+const changePrice = async (req, res) => {
+    const update = {
+        price : req.body.newValue
+    }
+    const updatedItem = await itemSchema.findByIdAndUpdate(req.params.itemId, update, { new : true} )
+    res.status(200).json(updatedItem)
+}
+
 module.exports.createPost = createPost
 module.exports.createGet = createGet
 module.exports.getOthers = getOthers
 module.exports.deleteItem = deleteItem
+module.exports.changePrice = changePrice

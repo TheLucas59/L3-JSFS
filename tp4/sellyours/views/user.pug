@@ -1,7 +1,7 @@
 extends layout 
 
 block scripts
-    script(src="/javascripts/userButtonHandler.js" defer=true)
+    script(src="/javascripts/userButtonHandler.js" defer)
 block content
     h1= "Votre profil"
     p Bonjour #{user.login}
@@ -20,13 +20,19 @@ block content
                 td#lastBoughtPrice(class= "lastBought")
     p Voici vos objets actuellement en vente : 
     table.itemList
+        - let i = 1
         each item in items
             tr.item
                 td.name= item.name
                 td.description= item.description
                 td.price= item.price
                 td 
-                    button.delete(data_id= item._id user_id= item.user_id) Retirer de la vente
+                    button.delete(data_id= item._id) Retirer de la vente
+                td
+                    button.modify(data_id= item._id number= `${i}`) Modifier le prix de vente
+                    input#modifyValue(type= "number" min="1" number= `${i}`)
+                    button#value(number= `${i}`) Modifier
+            - i += 1
     button#sell Mettre en vente un objet 
     button#listAll Accéder à la liste des objets en vente
     button#logout Se déconnecter

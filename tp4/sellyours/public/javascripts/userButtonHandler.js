@@ -55,6 +55,66 @@ creditButton.addEventListener('click', async () => {
     }
 })
 
+const modifyButtons = document.querySelectorAll('.modify')
+const value = document.querySelectorAll('#modifyValue')
+const valueButton = document.querySelectorAll('#value')
+modifyButtons.forEach(button => {
+    const number = button.getAttribute('number')
+    button.addEventListener('click', () => {
+        button.style.display = 'none'
+        value.forEach(val => {
+            if(val.getAttribute('number') == number) {
+                val.style.display = 'inline'
+            }
+        })
+        valueButton.forEach(butt => {
+            if(butt.getAttribute('number') == number) {
+                butt.style.display = 'inline'
+            }
+        })
+    })
+})
+
+valueButton.forEach(button => {
+    button.addEventListener('click', async () => {
+        const number = button.getAttribute('number')
+        let value = 0
+        let itemId = "";
+        const modifyButtons = document.querySelectorAll('.modify')
+        const valueInputs = document.querySelectorAll('#modifyValue')
+        valueInputs.forEach(val => {
+            if(val.getAttribute('number') == number) {
+                value = parseInt(val.value)
+            }
+        })
+        modifyButtons.forEach(modButt => {
+            if(modButt.getAttribute('number') == number) {
+                itemId = modButt.getAttribute('data_id')
+            }
+        })
+        if(confirm(`Voulez-vous modifier le prix de cet objet à ${value} ?`)) {
+            const body = {
+                newValue : value,
+            }
+            const requestOptions = { 
+                method :'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body : JSON.stringify(body)                   
+            }
+            const response = await fetch(`/item/${itemId}/price`, requestOptions);
+            if (response.ok) {
+                alert("Le prix de cet objet a été mis à jour.")
+                window.location.href = '/users/me';
+            }
+            else {
+                const error = await response.json();
+                document.getElementById('problem').textContent = `erreur : ${error.message}`;
+            }
+        }
+    })
+})
+
+
 const deleteButtons = document.querySelectorAll('.delete')
 deleteButtons.forEach(button => {
     button.addEventListener('click', async event => {

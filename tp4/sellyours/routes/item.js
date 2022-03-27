@@ -9,5 +9,6 @@ router.post('/', authMiddleware.validToken, itemController.createPost);
 router.get('/', authMiddleware.validToken, itemController.createGet);
 router.get('/others', authMiddleware.validToken ,itemController.getOthers);
 router.delete('/:itemId', authMiddleware.validToken, itemController.deleteItem);
+router.put('/:itemId/price', authMiddleware.validToken, itemController.changePrice)
 
 module.exports = router;
