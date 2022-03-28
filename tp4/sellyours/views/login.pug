@@ -1,0 +1,18 @@
+extends layout 
+
+block scripts 
+    script(src="../javascripts/loginClient.js" defer="true")
+block content 
+    h1 Se connecter 
+    form#userdata
+        label Nom
+            input#username(type= "text" placeholder="Nom" value= "")
+        br/
+        label Mot de passe
+            input#password(type= "password" placeholder="Mot de passe" value= "")
+        br/
+        label
+            button(type= "submit") Se connecter
+        br/
+    div
+        a(href="/access/register") Créer un compte

@@ -51,13 +51,19 @@ const login = async (req, res) => {
     }
   }  
 
-const loginForm = (_,res) => res.redirect('/login.html');
+const loginForm = (_,res) => res.render('login', {
+  title : 'Sellyours - Connexion'
+});
 
-const registerForm = (_,res) => res.redirect('/register.html');
+const registerForm = (_,res) => res.render('register', {
+  title : 'Sellyours - Créer un compte'
+});
 
 const logout = (req,res) => {
   res.cookie('token', '',  { maxAge : 2000, httpOnly: true, sameSite : 'strict' }) // secure : true
-  res.render('logout')
+  res.render('logout', {
+    title : "Sellyours - Déconnexion"
+  })
   res.status(200).json({ message : 'utilisateur déconnecté' });
 }
 

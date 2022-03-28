@@ -1,0 +1,18 @@
+extends layout 
+
+block scripts
+    script(src="../javascripts/registerClient.js" defer="true")
+block content 
+    h1 S'enregistrer 
+    form#userdata
+        label Nom
+            input#username(type= "text" placeholder="Nom" value= "")
+        br/
+        label Mot de passe
+            input#password(type= "password" placeholder="Mot de passe" value= "")
+        br/
+        label
+            button(type= "submit") S'enregistrer
+        br/
+    div
+        a(href="/access/login") Vous avez déjà un compte ?

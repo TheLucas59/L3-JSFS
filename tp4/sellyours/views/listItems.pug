@@ -3,7 +3,7 @@ extends layout
 block scripts
     script(src="/javascripts/listItemsButtonHandler.js" defer=true)
 block content
-    h1= title
+    h1= "Liste des objets en vente"
     button#me Retourner sur votre profil
     table.itemList
         each item in items

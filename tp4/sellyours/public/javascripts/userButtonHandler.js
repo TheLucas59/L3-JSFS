@@ -128,6 +128,7 @@ deleteButtons.forEach(button => {
             }
             const response = await fetch(`/item/${itemId}`, requestOptions);
             if (response.ok) {
+                alert("Cet objet a été retiré de la vente.")
                 window.location.href = '/users/me';
             }
             else {

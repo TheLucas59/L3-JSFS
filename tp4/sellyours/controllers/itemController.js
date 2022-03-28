@@ -24,7 +24,9 @@ const getOthers = async (req, res) => {
     });
 }
 
-const createGet = (_,res) => res.render('createItem');
+const createGet = (_,res) => res.render('createItem', {
+    title : "Sellyours - Mettre un objet en vente"
+});
 
 const deleteItem = async (req, res) => {
     const deletedItem = await itemSchema.findByIdAndDelete(req.params.itemId)
