@@ -1,6 +1,6 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -25,4 +25,42 @@ a {
 
 #value {
   display: none;
+}
+
+header > h1 {
+  font-size: 40px;
+  text-align: center;
+}
+
+table {
+  border-collapse : collapse;
+}
+
+th, td {
+  border : 1px solid black;
+  width: 20%;
+  text-align: center;
+}
+
+.modifyCase {
+  border-style : none;
+  text-align: left;
+}
+
+.removeCase {
+  border-style: none;
+  text-align: left;
+}
+
+button {
+  background-color: blue;
+  border: 2px grey solid;
+  color : white;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+div {
+  margin: 10px;
 }

@@ -21,14 +21,18 @@ block content
     p Voici vos objets actuellement en vente : 
     table.itemList
         - let i = 1
+        tr.titles
+            th Nom de l'objet 
+            th Description 
+            th Prix
         each item in items
             tr.item
                 td.name= item.name
                 td.description= item.description
-                td.price= item.price
-                td 
+                td.price= item.price + '€'
+                td.removeCase 
                     button.delete(data_id= item._id) Retirer de la vente
-                td
+                td.modifyCase
                     button.modify(data_id= item._id number= `${i}`) Modifier le prix de vente
                     input#modifyValue(type= "number" min="1" number= `${i}`)
                     button#value(number= `${i}`) Modifier
