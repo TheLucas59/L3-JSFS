@@ -14,10 +14,14 @@ block content
         p.lastBought Voici le dernier objet que vous avez acheté :
         br/
         table.lastBought
-            tr.lastBought 
-                td#lastBoughtName(class= "lastBought") 
-                td#lastBoughtDescription(class= "lastBought") 
-                td#lastBoughtPrice(class= "lastBought")
+            tr.titles
+                th Nom de l'objet 
+                th Description 
+                th Prix
+                tr 
+                    td#lastBoughtName 
+                    td#lastBoughtDescription 
+                    td#lastBoughtPrice
     p Voici vos objets actuellement en vente : 
     table.itemList
         - let i = 1
