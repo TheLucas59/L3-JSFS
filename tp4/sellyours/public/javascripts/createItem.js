@@ -28,6 +28,7 @@ class ItemHandler {
                         };
         const response = await fetch("/item", requestOptions)
         if(response.ok) {
+            alert(`L'objet ${itemName.value} a été mis en vente avec succès.`)
             window.location.href = '/users/me'
         }
         else {

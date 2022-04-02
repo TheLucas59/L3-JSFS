@@ -1,4 +1,5 @@
 const itemSchema = require('../models/Item').model
+const userSchema = require('../models/User').model
 
 const createPost = async (req, res) => {
     try {
@@ -18,6 +19,10 @@ const createPost = async (req, res) => {
 
 const getOthers = async (req, res) => {
     const allItems = await itemSchema.find().where('user_id').ne(req.userId)
+    for(let i = 0; i < allItems.length; i++) {
+        const userSelling = await userSchema.findById(allItems[i].user_id);
+        allItems[i] = {...allItems[i]._doc, selledBy : userSelling.login}
+    }
     res.render('listItems', {
         title : 'Sellyours - Objets à vendre',
         items : allItems
